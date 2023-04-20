@@ -171,7 +171,7 @@ def callapi():
     return selectds()
 
 def selectds():
-    return render_template('applications/pages/connecttods.html', ds_id=session['ds_source'], segment='createmodel')
+    return render_template('applications/pages/connecttods.html', ds_id=session['ds_source'], segment='createmodel', str_message="None")
 
 @blueprint.route('/previewdata', methods=['GET', 'POST'])
 @login_required

@@ -163,9 +163,21 @@ class BaseDirector:
         # 25, Object Detecting
         # 29, Face Detection
 
+
         try:
             if ds_source == '1':
                 fname, filePath, headersArray, data, dataset_info, message = self.get_data_details(request)
+
+                # ----- For demo only -----
+                data = pd.read_csv(filePath)
+                # check if dataframe contains non-numeric columns
+                non_numeric_cols = data.select_dtypes(exclude='number').columns
+                if len(non_numeric_cols) > 0:
+                    print("DataFrame contains non-numeric columns:", non_numeric_cols)
+                    return render_template('applications/pages/connecttods.html', ds_id=session['ds_source'],
+                                           segment='createmodel', str_message="For Demo Purpose, Data should be only "
+                                                                              "numeric values.")
+
 
             if ds_source == '2':
                 database_name, file_location, headersArray, count_row, data, message = self.prepare_query_results(
