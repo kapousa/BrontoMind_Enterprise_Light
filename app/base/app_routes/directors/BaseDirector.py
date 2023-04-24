@@ -168,7 +168,7 @@ class BaseDirector:
             if ds_source == '1':
                 fname, filePath, headersArray, data, dataset_info, message = self.get_data_details(request)
 
-                # ----- For demo only -----
+                # ----- For demo only --------
                 data = pd.read_csv(filePath)
                 # check if dataframe contains non-numeric columns
                 non_numeric_cols = data.select_dtypes(exclude='number').columns
