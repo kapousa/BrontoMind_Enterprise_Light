@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'brontomindlight'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_68792324FF9044AD81286C912E1E9B49 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A2162DC6B57A4CD983113A215741BB22 }}
