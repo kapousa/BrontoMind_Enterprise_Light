@@ -1,12 +1,11 @@
+
 from flask import render_template, request
 
 from app.base.constants.BM_CONSTANTS import docs_templates_folder, output_docs
+from app.base.db_models.ModelAPIDetails import ModelAPIDetails
 from app.base.db_models.ModelCvisionRun import ModelCvisionRun
 from app.base.db_models.ModelProfile import ModelProfile
-from app.base.db_models.ModelAPIDetails import ModelAPIDetails
 from bm.apis.v1.APIHelper import APIHelper
-from bm.controllers.cvision.FaceDetectionCotroller import FaceDetectionCotroller
-from bm.controllers.cvision.ObjectDetectionCotroller import ObjectDetectionCotroller
 
 
 class FaceDetectionDirector:
@@ -18,7 +17,7 @@ class FaceDetectionDirector:
 
     def createfacedetection(self, ds_goal, ds_source):
         try:
-            facedetectingcotroller = FaceDetectionCotroller()
+            facedetectingcotroller = "FaceDetectionCotroller()"
             facedetectionmodel = facedetectingcotroller.create_model(ds_goal, ds_source)
 
             page_url =  "{0}cvision/{1}/facedetect/detect".format(request.host_url, str(facedetectionmodel['model_id']))
@@ -59,7 +58,7 @@ class FaceDetectionDirector:
 
     def detect_object(self, model_id, runid, desc, host, uname, pword):
         try:
-            objectdetectioncontroller = ObjectDetectionCotroller()
+            objectdetectioncontroller = "ObjectDetectionCotroller()"
             run_identifier = "%s%s%s" % (model_id, '_', runid)
             labelfileslink, labeled = objectdetectioncontroller.labelfiles(run_identifier, desc, host, uname, pword, 27)
 

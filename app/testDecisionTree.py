@@ -12,16 +12,7 @@ dataset = pd.read_csv('Restaurant_Reviews.tsv', delimiter='\t')
 # library to clean data
 import re
 
-# Natural Language Tool Kit
-import nltk
 
-nltk.download('stopwords')
-
-# to remove stopword
-from nltk.corpus import stopwords
-
-# for Stemming propose
-from nltk.stem.porter import PorterStemmer
 
 # Initialize empty array
 # to append clean text
@@ -40,12 +31,11 @@ for i in range(0, 1000):
 
     # creating PorterStemmer object to
     # take main stem of each word
-    ps = PorterStemmer()
+    ps = "PorterStemmer()"
 
     # loop for stemming each word
     # in string array at ith row
-    review = [ps.stem(word) for word in review
-              if not word in set(stopwords.words('english'))]
+    review = []
 
     # rejoin all string array elements
     # to create back into a string

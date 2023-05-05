@@ -5,19 +5,12 @@ import numpy as np
 from pandas import DataFrame
 from sklearn import metrics
 from sklearn.cluster import KMeans, estimate_bandwidth, MeanShift
-from sklearn.linear_model import Lasso, LogisticRegression
+from sklearn.linear_model import Lasso
 from sklearn.linear_model import SGDRegressor, SGDClassifier, LinearRegression
-from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import cross_val_score
 from sklearn.multioutput import MultiOutputClassifier, MultiOutputRegressor
-from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR, LinearSVC, SVC
-
-from app import config_parser
 
 
 class ModelProcessor:

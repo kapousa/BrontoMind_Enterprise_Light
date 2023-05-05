@@ -6,7 +6,7 @@ Copyright (c) 2019 - present AppSeed.us
 import os
 import ssl
 
-import nltk
+
 from decouple import config
 
 class Config(object):

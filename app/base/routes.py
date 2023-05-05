@@ -2,27 +2,24 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-import subprocess
-from datetime import datetime
 import io
 import os
 import shutil
+import subprocess
 import sys
-
-from werkzeug.utils import secure_filename
-from werkzeug.datastructures import  FileStorage
 
 import numpy
 import pandas as pd
-from flask import Markup, session, g, url_for
 from flask import redirect, send_file, Response, Flask, \
     current_app
 from flask import render_template, request
+from flask import session, g, url_for
 from flask_login import login_required, current_user
 from jinja2 import TemplateNotFound
 from matplotlib.backends.backend_template import FigureCanvas
+from werkzeug.utils import secure_filename
 
-from app import login_manager, db
+from app import login_manager
 from app.base import blueprint
 from app.base.app_routes.directors.BaseDirector import BaseDirector
 from app.base.app_routes.directors.ClassificationDirector import ClassificationDirector

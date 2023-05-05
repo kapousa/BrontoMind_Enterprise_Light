@@ -3,13 +3,12 @@ import difflib
 import logging
 import random
 
-import nltk
+
 import numpy
 import numpy as np
 from flask import abort
 # from gensim.models import Word2Vec
-from nltk import word_tokenize, pos_tag
-from nltk.corpus import wordnet
+
 
 from app.base.constants.DATAPROCESSING_CONSTANTS import delete_actions, combine_actions, actions_list, ignorance_words
 
@@ -104,50 +103,16 @@ class WordProcessor:
         return closet_words
 
     def extract_keywords(self, user_desc):
-        try:
-            # Analysing the input
-            text_names = [token for token, pos in pos_tag(word_tokenize(user_desc)) if pos.startswith('N')]
-            text_names = numpy.array(text_names)
+       return ""
 
-            text_verbs = [token for token, pos in pos_tag(word_tokenize(user_desc)) if
-                          (pos.startswith('VB') or pos.startswith('VBG') or pos.startswith('VBN') or pos.startswith(
-                              'VBP') or pos.startswith('VBZ'))]
-            text_verbs = numpy.array(text_verbs)
-
-            text_numbers = [token for token, pos in pos_tag(word_tokenize(user_desc)) if (pos.startswith('CD'))]
-            text_numbers = numpy.array(text_numbers)
-
-            if len(text_names) == 0 or len(text_verbs) == 0:
-                return "Sorry but we couldn't recognise what you need, Please rephrase your description and try again"
-
-            return text_verbs, text_names
-
-        except  Exception as e:
-            logging.ERROR('Ohh -get_model_status...Something went wrong.')
-            return ['Ohh -get_model_status...Something went wrong.']
 
     def find_synonyms(self, words):
-        all_synonyms = {}
-        for word in words:
-            synonyms = []
-            for syn in wordnet.synsets(word):
-                for i in syn.lemmas():
-                    synonyms.append(i.name())
-            synonyms = numpy.array(synonyms)
-            all_synonyms[word] = synonyms
-        return all_synonyms
+
+        return "all_synonyms"
 
     def find_antonyms(self, words):
-        all_antonyms = {}
-        for word in words:
-            antonyms = []
-            for syn in wordnet.synsets(word):
-                for i in syn.lemmas():
-                    if i.antonyms():
-                        antonyms.append(i.antonyms()[0].name())
-            antonyms = numpy.array(antonyms)
-            all_antonyms[word] = antonyms
-        return all_antonyms
+
+        return "all_antonyms"
 
     def get_actions(self, user_text):
 
@@ -194,10 +159,10 @@ class WordProcessor:
 
     def _get_orders_list(self, sentence):
         # Tokenize the sentence into words
-        words = nltk.word_tokenize(sentence)
+        words = "nltk.word_tokenize(sentence)"
 
         # Use NLTK to tag each word with its part of speech
-        pos_tags = nltk.pos_tag(words)
+        pos_tags = "nltk.pos_tag(words)"
 
         # Create a list to store verbs and their corresponding words
         verb_list = []
@@ -235,10 +200,10 @@ class WordProcessor:
         action_keywords = ['add', 'create', 'delete', 'edit', 'modify', 'remove', 'combine']
 
         # Tokenize the sentence into words
-        words = nltk.word_tokenize(sentence)
+        words = "nltk.word_tokenize(sentence)"
 
         # Use NLTK to tag each word with its part of speech
-        pos_tags = nltk.pos_tag(words)
+        pos_tags = "nltk.pos_tag(words)"
 
         # Create a list to store the required actions
         required_actions = []

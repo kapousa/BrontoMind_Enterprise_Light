@@ -1,23 +1,22 @@
 import itertools
 import json
-
-import numpy
 import os
 
+import category_encoders as ce
+import numpy
+import numpy as np
+import pandas as pd
 import requests
+from joblib import dump, load
 from matplotlib import pyplot as plt
 from pandas import DataFrame
-import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
-import category_encoders as ce
-import numpy as np
-from app import db
-from joblib import dump, load
 
+from app import db
 from app.base.constants.BM_CONSTANTS import df_location
 from app.base.db_models import ModelEncodedColumns
 from app.base.db_models.ModelFeatures import ModelFeatures
-from base.constants.BM_CONSTANTS import api_data_filename, data_files_folder, api_data_folder
+from base.constants.BM_CONSTANTS import api_data_filename, api_data_folder
 from bm.db_helper.AttributesHelper import add_encoded_column_values
 from bm.db_helper.DBConnector import DBConnector
 from bm.utiles.CVSReader import get_only_file_name, get_file_path

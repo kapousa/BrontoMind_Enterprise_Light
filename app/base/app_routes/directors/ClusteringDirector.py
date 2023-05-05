@@ -1,20 +1,9 @@
-import os
+from flask import render_template, request, send_file
 
-import numpy
-from flask import render_template, request, current_app, session, send_file
+from flask import render_template, request, send_file
 
-from app.base.constants.BM_CONSTANTS import progress_icon_path, loading_icon_path, docs_templates_folder, output_docs, \
-    labeled_data_filename, labeled_data_filename_download_path
-from app.base.db_models.ModelAPIDetails import ModelAPIDetails
-from app.base.db_models.ModelProfile import ModelProfile
-
-from base.constants.BM_CONSTANTS import html_short_path, output_docs_location
-from bm.apis.v1.APIHelper import APIHelper
+from app.base.constants.BM_CONSTANTS import labeled_data_filename, labeled_data_filename_download_path
 from bm.controllers.BaseController import BaseController
-from bm.datamanipulation.DataCoderProcessor import DataCoderProcessor
-from bm.db_helper.AttributesHelper import get_labels, get_features, get_model_name
-from bm.controllers.classification.ClassificationController import ClassificationController
-from bm.utiles.Helper import Helper
 
 
 class ClusteringDirector:

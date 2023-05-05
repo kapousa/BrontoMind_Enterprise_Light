@@ -2,17 +2,11 @@ import csv
 import logging
 import os
 import pickle
-import shutil
 import string
 from collections import defaultdict
-from csv import DictReader
 from os import listdir
 from os.path import isfile, join
-from random import shuffle
 
-from flask import abort
-
-from app import db, config_parser
 import matplotlib.pyplot as plt
 import numpy
 import numpy as np
@@ -20,13 +14,13 @@ import pandas as pd
 import plotly
 import plotly.express as px
 import seaborn as sns
-from nltk import word_tokenize, FreqDist
-from nltk.corpus import stopwords
+from flask import abort
+
 from sklearn.preprocessing import MinMaxScaler
 
+from app import config_parser
 from app.base.constants.BM_CONSTANTS import html_plots_location, html_short_path, app_root_path, \
-    data_files_folder, df_location, scalars_location, dep_path, pkls_location
-from app.base.constants.DATAPROCESSING_CONSTANTS import merge_action, delete_action
+    data_files_folder, df_location, scalars_location
 from app.base.db_models.ModelProfile import ModelProfile
 from bm.utiles.Helper import Helper
 
@@ -38,7 +32,7 @@ class ControllersHelper:
     def __init__(self):
         ''' Constructor for this class. '''
         # Create some member animals
-        self.stop_words = set(stopwords.words('english'))
+        self.stop_words = "set(stopwords.words('english'))"
 
     @staticmethod
     def plot_classification_report(model_name, classificationReport, title='Classification report ',
@@ -157,12 +151,12 @@ class ControllersHelper:
             for doc in docs:
                 doc_label = doc[0]
                 doc_text = doc[1]
-                doc_tokens = word_tokenize(doc_text)
+                doc_tokens = "word_tokenize(doc_text)"
                 tokens[doc_label].extend(doc_tokens)
 
             for category_label, category_tokens in tokens.items():
                 print(category_label)
-                fd = FreqDist(category_tokens)
+                fd = "FreqDist(category_tokens)"
                 most_common_3 = fd.most_common(3)
                 categories.append(category_label)
                 most_common.append(str(most_common_3))
@@ -180,12 +174,12 @@ class ControllersHelper:
             for doc in docs:
                 doc_label = doc[0:-1]
                 doc_text = doc[-1]
-                doc_tokens = word_tokenize(doc_text)
+                doc_tokens = "word_tokenize(doc_text)"
                 tokens[doc_label].extend(doc_tokens)
 
             for category_label, category_tokens in tokens.items():
                 print(category_label)
-                fd = FreqDist(category_tokens)
+                fd = "FreqDist(category_tokens)"
                 most_common_3 = fd.most_common(3)
                 categories.append(category_label)
                 most_common.append(str(most_common_3))
@@ -243,8 +237,8 @@ class ControllersHelper:
             return 0
 
     def get_tokens(self, text):
-        tokens = word_tokenize(text)
-        tokens = [t for t in tokens if not t in stopwords]
+        tokens = ""
+        tokens = []
         return tokens
 
     def clean_text(self, text):

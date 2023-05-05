@@ -7,7 +7,6 @@ import shutil
 import time
 from datetime import datetime
 
-import matplotlib.pyplot as plt
 import numpy
 import numpy as np
 import pandas as pd
@@ -164,6 +163,8 @@ class PredictionController:
                                                                                                              model_features,
                                                                                                              model_labels,
                                                                                                              obj_labels_dtypes)
+
+
             end = time.time()
             logging.info("End building the model:{}".format(str(end)))
 

@@ -7,7 +7,6 @@ from werkzeug.utils import secure_filename
 
 from app.base.constants.BM_CONSTANTS import tempfiles_loaction
 from app.base.constants.DATAPROCESSING_CONSTANTS import modified_files_temp_path
-from bm.controllers.dataprocessing.DataBotController import DataBotController
 from bm.utiles.CVSReader import get_file_name_with_ext
 
 
@@ -48,7 +47,7 @@ class DataBotDirector:
         try:
             user_text = request.form.get('user_text')
             session['user_text'] = user_text
-            databotcontroller = DataBotController()
+            databotcontroller = "DataBotController()"
             required_changes, data_sample = databotcontroller.drafting_bot_request(user_text, session['filepath'])
             session['required_changes'] = required_changes
             return render_template('applications/pages/dataprocessing/databot/databot.html', segment='preparedata',
@@ -67,7 +66,7 @@ class DataBotDirector:
             filepath = session['filepath']
             user_text = session['user_text']
             required_changes = session['required_changes']
-            databotcontroller = DataBotController()
+            databotcontroller = "DataBotController()"
             required_changes, data_sample = databotcontroller.apply_bot_request(filepath, required_changes)
             return render_template('applications/pages/dataprocessing/databot/databot.html',
                                    segment='preparedata',

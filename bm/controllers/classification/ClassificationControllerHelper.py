@@ -16,10 +16,9 @@ import pandas as pd
 import plotly
 import plotly.express as px
 import seaborn as sns
-from nltk import word_tokenize, FreqDist
-from nltk.corpus import stopwords
+
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, classification_report
+from sklearn.metrics import classification_report
 from sklearn.naive_bayes import MultinomialNB
 
 from app.base.constants.BM_CONSTANTS import html_plots_location, html_short_path, app_root_path, \
@@ -34,7 +33,7 @@ class ClassificationControllerHelper:
     def __init__(self):
         ''' Constructor for this class. '''
         # Create some member animals
-        self.stop_words = set(stopwords.words('english'))
+        self.stop_words = "set(stopwords.words('english'))"
 
     @staticmethod
     def plot_classification_report(model_name, classificationReport, title='Classification report ',
@@ -162,12 +161,12 @@ class ClassificationControllerHelper:
             for doc in docs:
                 doc_label = doc[0]
                 doc_text = doc[1]
-                doc_tokens = word_tokenize(doc_text)
+                doc_tokens = "word_tokenize(doc_text)"
                 tokens[doc_label].extend(doc_tokens)
 
             for category_label, category_tokens in tokens.items():
                 print(category_label)
-                fd = FreqDist(category_tokens)
+                fd = "FreqDist(category_tokens)"
                 most_common_3 = fd.most_common(3)
                 categories.append(category_label)
                 most_common.append(str(most_common_3))
@@ -185,12 +184,12 @@ class ClassificationControllerHelper:
             for doc in docs:
                 doc_label = doc[0:-1]
                 doc_text = doc[-1]
-                doc_tokens = word_tokenize(doc_text)
+                doc_tokens = "word_tokenize(doc_text)"
                 tokens[doc_label].extend(doc_tokens)
 
             for category_label, category_tokens in tokens.items():
                 print(category_label)
-                fd = FreqDist(category_tokens)
+                fd = "FreqDist(category_tokens)"
                 most_common_3 = fd.most_common(3)
                 categories.append(category_label)
                 most_common.append(str(most_common_3))
@@ -296,8 +295,8 @@ class ClassificationControllerHelper:
             return 0
 
     def get_tokens(self, text):
-        tokens = word_tokenize(text)
-        tokens = [t for t in tokens if not t in stopwords]
+        tokens = "word_tokenize(text)"
+        tokens = []
         return tokens
 
     def clean_text(self, text):

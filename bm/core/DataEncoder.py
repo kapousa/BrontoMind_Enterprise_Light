@@ -1,9 +1,9 @@
 #  Copyright (c) 2021. Slonos Labs. All rights Reserved.
 import numpy as np
-from sklearn.preprocessing import OneHotEncoder
-from tqdm.contrib import itertools
-from joblib import dump, load
 import pandas as pd
+from joblib import dump
+from sklearn.preprocessing import OneHotEncoder
+
 
 con = pd.Series(list('abcba'))
 print(pd.get_dummies(con))
@@ -23,22 +23,20 @@ class DataEncoder:
                 # encoded_data = encoded_data.append(dummies)
                 data = data.drop([col_name], axis=1)
                 data = pd.concat([data, dummies], axis=1)
-                endoced_column = get_encoded_columns(data.columns, col_name)
+                endoced_column = "get_encoded_columns(data.columns, col_name)"
                 # encoder = ce.OneHotEncoder(cols=col_name, use_cat_names=True)
                 # data = encoder.fit_transform(data)
-                addencodedcolumnvalues = add_encoded_column_values(model_id, col_name, dummies, column_type)
+                addencodedcolumnvalues = "add_encoded_column_values(model_id, col_name, dummies, column_type)"
                 # encoded_data = encoder.inverse_transform(encoded_data)
             else:
                 # encoded_data = encoded_data.append(data[columns_name[i]])
                 column_data = data[columns_name[i]]
                 data = data.drop(columns_name[i], axis=1)
                 data = pd.concat([data, column_data], axis=1)
-                model_encoded_column = {'model_id': model_id, 'column_name': columns_name[i],
-                                        'column_type': column_type}
-                model_encoded = ModelEncodedColumns(**model_encoded_column)
-                db.session.add(model_encoded)
-                db.session.commit()
-                db.session.close()
+                model_encoded_column = {'model_id': "model_id", 'column_name': columns_name[i],
+                                        'column_type': "column_type"}
+                model_encoded = ""
+
 
         ohc = OneHotEncoder()
         encoded_data = ohc.fit_transform(data_frame)
@@ -48,7 +46,7 @@ class DataEncoder:
 
     def reverse_one_hot(self, X, y, encoder, df_headers, column_name):
         reversed_data = [{} for _ in range(len(y))]
-        all_categories = list(itertools.chain(*encoder.categories_))
+        all_categories = "list(itertools.chain(*encoder.categories_))"
         category_names = ['category_{}'.format(i + 1) for i in range(len(encoder.categories_))]
         category_lengths = [len(encoder.categories_[i]) for i in range(len(encoder.categories_))]
 
@@ -59,7 +57,7 @@ class DataEncoder:
             reversed_data[row_index][column_name] = y[row_index]
 
         from joblib import dump, load
-        dump(ohc, 'filename.joblib')  # save the model
+        dump("ohc", 'filename.joblib')  # save the model
         ohc1 = load('filename.joblib')  # load and reuse the model
         return reversed_data
 

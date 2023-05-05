@@ -34,8 +34,7 @@ from bm.apis.v1.APIHelper import APIHelper
 from bm.apis.v1.APIsPredictionServices import predictvalues
 from bm.controllers.BaseController import BaseController
 from bm.controllers.classification.ClassificationController import ClassificationController
-from bm.controllers.mlforecasting.MLForecastingController import MLForecastingController
-from bm.controllers.timeforecasting.TimeForecastingController import TimeForecastingController
+
 from bm.core.DocumentProcessor import DocumentProcessor
 from bm.core.engine.factories.ClassificationFactory import ClassificationFactory
 from bm.core.engine.factories.PredictionFactory import PredictionFactory
@@ -378,7 +377,7 @@ def sendvalues():  # The main function of creating the model
                 df = pd.read_csv(data_file_path, sep=",")
                 data_sample = (df.sample(n=5))
 
-                ml_forecasting_controller = MLForecastingController()
+                ml_forecasting_controller = "MLForecastingController()"
                 forecastingfactor = request.form.get('forecastingfactor')
                 dependedfactor = request.form.get('dependedfactor')
                 timefactor = request.form.get('timefactor')

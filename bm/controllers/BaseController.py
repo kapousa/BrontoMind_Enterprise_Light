@@ -3,12 +3,11 @@ import os
 import shutil
 from datetime import datetime
 
-import nltk
+
 import numpy
 import numpy as np
 import pandas as pd
 from flask import abort
-from nltk.corpus import wordnet
 
 from app import db
 from app.base.constants.BM_CONSTANTS import scalars_location, pkls_location, output_docs_location, df_location, \
@@ -200,62 +199,8 @@ class BaseController:
 
     def detectefittedmodels(self, user_desc):
         try:
-            # Analysing the input
-            text = nltk.word_tokenize(user_desc)
-            pos_tagged = nltk.pos_tag(text)
-            text_verbs = list(filter(lambda x: x[0], pos_tagged))
-            text_verbs = numpy.array(text_verbs)
-            text_verbs = text_verbs[:, 0] if len(text_verbs) > 0 else text_verbs
 
-            if (len(text_verbs) == 0):
-                return ["Sorry but we couldn't recognise what you need, Please rephrase your description and try again"]
-
-            # Extract verbs
-            synonyms_verbs = []
-            for i in range(len(text_verbs)):
-                xx = text_verbs[i]
-                for syn in wordnet.synsets(text_verbs[i]):
-                    for lm in syn.lemmas():
-                        synonyms_verbs.append(lm.name())  # adding into synonyms
-                print(set(synonyms_verbs))
-
-            synonyms = synonyms_verbs
-            synonyms = numpy.unique(synonyms)
-            modelbotkeywords = ModelBotKeywords.query.all()
-            suggested_models = []
-            suggested_models_ids = []
-
-            for i in range(len(synonyms)):
-                for item in modelbotkeywords:
-                    kwords = item.keywords
-                    kwords = kwords.split(',')
-                    # kwords = numpy.array(kwords)
-                    if any(word.startswith(synonyms[i]) for word in kwords):
-                        suggested_models.append(item.model_type)
-                        suggested_models_ids.append(item.model_code)
-
-            suggested_models = np.unique(suggested_models)
-            # suggested_models = ''.join(suggested_models)
-
-            if (len(suggested_models) == 0):
-                return ["Sorry but we couldn't recognise what you need, Please rephrase your description and try again"]
-
-            results = ['Well, Here how we can help you:']
-            results.append(
-                "- Create %s model to predict values based on the history of the old data.<br/><a href='/createmodel?t=7' class='btn btn-primary' style='float: right'>Create prediction model</a>" % (
-                    prediction_model_keyword)) if (prediction_model_keyword in suggested_models) else print('0')
-            results.append(
-                "- Group data under sets of %s that help reaching to the data easily in the future.<br/><a href='/createmodel?t=10' class='btn btn-danger' style='float: right'>Connect to labeled data</a>" % (
-                    classification_model_keyword)) if (classification_model_keyword in suggested_models) else print('0')
-            results.append(
-                "- Create %s model to predict values in specific Date/Time.<br/><a href='/createmodel?t=8' class='btn btn-default' style='float: right'>Start forecasting model</a>" % (
-                    forecasting_model_keyword)) if (forecasting_model_keyword in suggested_models) else print('0')
-            results.append(
-                "- %s related information under one umbrella to make it easy for you to find information that have same characteristc.<br/><a href='/createmodel?t=13' class='btn btn-success' style='float: right'>Connect to row data</a>" % (
-                    clustering_model_keyword)) if (clustering_model_keyword in suggested_models) else print('0')
-
-            return results if len(results) > 1 else [
-                "Sorry but we couldn't recognise what you need, Please rephrase your description and try again"]
+            return "Sorry but we couldn't recognise what you need, Please rephrase your description and try again"
 
         except  Exception as e:
             print('Ohh -get_model_status...Something went wrong.')
@@ -264,76 +209,8 @@ class BaseController:
 
     def detectefittedmodels_(self, user_desc):
         try:
-            # Analysing the input
-            text = nltk.word_tokenize(user_desc)
-            pos_tagged = nltk.pos_tag(text)
-            text_verbs = list(filter(lambda x: x[1] == 'VB', pos_tagged))
-            text_words = list(filter(lambda x: x[1] == 'NN', pos_tagged))
-            text_verbs = numpy.array(text_verbs)
-            text_verbs = text_verbs[:, 0] if len(text_verbs) > 0 else text_verbs
-            text_words = numpy.array(text_words)
-            text_words = text_words[:, 0] if len(text_words) > 0 else text_words
 
-            if (len(text_verbs) == 0 and len(text_words) == 0):
-                return ["Sorry but we couldn't recognise what you need, Please rephrase your description and try again"]
-
-            # Extract verbs
-            synonyms_verbs = []
-            for i in range(len(text_verbs)):
-                xx = text_verbs[i]
-                for syn in wordnet.synsets(text_verbs[i]):
-                    for lm in syn.lemmas():
-                        synonyms_verbs.append(lm.name())  # adding into synonyms
-                print(set(synonyms_verbs))
-
-            # Extract words
-            synonyms_text = []
-            for i in range(len(text_words)):
-                xx = text_words[i]
-                for syn in wordnet.synsets(text_words[i]):
-                    for lm in syn.lemmas():
-                        synonyms_text.append(lm.name())  # adding into synonyms
-                print(set(synonyms_text))
-
-            synonyms = numpy.concatenate((synonyms_verbs, synonyms_text), axis=0)
-            synonyms = numpy.unique(synonyms)
-            modelbotkeywords = ModelBotKeywords.query.all()
-            suggested_models = []
-            suggested_models_ids = []
-
-            for i in range(len(synonyms)):
-                for item in modelbotkeywords:
-                    kwords = item.keywords
-                    kwords = kwords.split(',')
-                    # kwords = numpy.array(kwords)
-                    if any(word.startswith(synonyms[i]) for word in kwords):
-                        suggested_models.append(item.model_type)
-                        suggested_models_ids.append(item.model_code)
-
-            suggested_models = np.unique(suggested_models)
-            # suggested_models = ''.join(suggested_models)
-
-            if (len(suggested_models) == 0):
-                return ["Sorry but we couldn't recognise what you need, Please rephrase your description and try again"]
-
-            results = ['Well, Here how we can help you:']
-            results.append("- Create %s model to predict values based on the history of the old data." % (
-                prediction_model_keyword)) if (prediction_model_keyword in suggested_models) else print('0')
-            results.append(
-                "- Group your data under set of %s to help you to reach to the data easily in the future." % (
-                    classification_model_keyword)) if (classification_model_keyword in suggested_models) else print('0')
-            results.append(
-                "- Create %s model to predict values in specific Date/Time." % (forecasting_model_keyword)) if (
-                        forecasting_model_keyword in suggested_models) else print('0')
-            results.append(
-                "- %s related information under one umbrella to make it easy for you to find information that have same characteristc." % (
-                    clustering_model_keyword)) if (clustering_model_keyword in suggested_models) else print('0')
-
-            sample_data = [
-                              results.to_html(border=0, classes='table table-hover', header="false",
-                                              justify="center").replace("<th>",
-                                                                        "<th class='text-warning'>")],
-            return sample_data
+            return ""
 
         except  Exception as e:
             print('Ohh -get_model_status...Something went wrong.')
