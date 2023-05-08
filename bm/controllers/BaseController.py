@@ -327,7 +327,7 @@ class BaseController:
             orginal_datacolumns = data.columns
             report = {}
             logging.info("------Numric columns")
-            if len(data.select_dtypes(include= int).dtypes.values) > 0 or len(
+            if len(data.select_dtypes(include=np.int).dtypes.values) > 0 or len(
                     data.select_dtypes(include=np.float).dtypes.values) > 0:
                 numric_cols = pd.DataFrame(data.describe())
                 numric_cols_names = numpy.array(numric_cols.columns)
