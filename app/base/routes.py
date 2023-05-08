@@ -7,6 +7,7 @@ import os
 import shutil
 import subprocess
 import sys
+import traceback
 
 import numpy
 import pandas as pd
@@ -712,4 +713,5 @@ def not_found_error(error):
 
 @blueprint.errorhandler(500)
 def internal_error(error):
-    return render_template(('page-500.html'), error=error, segment='error'), 500
+    tb = traceback.format_exc()
+    return render_template(('page-500.html'), error=error, traceback=tb, segment='error'), 500

@@ -220,5 +220,5 @@ class BaseDirector:
                                    dataset_info=dataset_info, sample_data=sample_data)
         except Exception as e:
             logging.error(e)
-            abort(500)
+            abort(500, description=e)
 
