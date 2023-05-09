@@ -127,8 +127,8 @@ class PredictionController:
 
             real_x = data.loc[:, model_features]
             real_y = data.loc[:, model_labels]
-            obj_features_dtypes = real_x.select_dtypes(include=np.object).dtypes
-            obj_labels_dtypes = real_y.select_dtypes(include=np.object).dtypes
+            obj_features_dtypes = real_x.select_dtypes(include=object).dtypes
+            obj_labels_dtypes = real_y.select_dtypes(include=object).dtypes
             # obj_features_dtypes = real_y.dtypes[real_x.dtypes != 'int64'][real_x.dtypes != 'float64']  # check if features has object values
             # obj_labels_dtypes = real_y.dtypes[real_y.dtypes != 'int64'][real_y.dtypes != 'float64'] # check if labels has object values
 

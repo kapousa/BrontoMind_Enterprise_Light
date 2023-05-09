@@ -45,7 +45,7 @@ class ModelProcessor:
             cls = KMeans(n_clusters=2, random_state=0)
             return cls
 
-        # if (number_of_predictions == 1 and labeldatatype[0] == np.object):  # Classification
+        # if (number_of_predictions == 1 and labeldatatype[0] == object):  # Classification
         #     cls = KNeighborsClassifier(n_neighbors=5, metric='minkowski', p=2)
         #     return cls
 
@@ -58,7 +58,7 @@ class ModelProcessor:
         return cls
 
         # if (number_of_predictions == 1):
-        #     if (labeldatatype[0] == np.object):  # Classification
+        #     if (labeldatatype[0] == object):  # Classification
         #         if (numberofrecords < numberofrecordsedge):
         #             try:
         #                 cls = make_pipeline(StandardScaler(), SGDClassifier(max_iter=1000, tol=1e-3))

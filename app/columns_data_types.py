@@ -36,11 +36,11 @@ def main():
     if dataTypeObj == np.int64:
         print("Data type of column 'Age' is int64")
     # Check the type of column 'Name' is object i.e string
-    if empDfObj.dtypes['Name'] == np.object:
+    if empDfObj.dtypes['Name'] == object:
         print("Data type of column 'Name' is object")
     print('** Get list of pandas dataframe columns based on data type **')
     # Get  columns whose data type is object i.e. string
-    filteredColumns = empDfObj.dtypes[empDfObj.dtypes == np.object]
+    filteredColumns = empDfObj.dtypes[empDfObj.dtypes == object]
     # list of columns whose data type is object i.e. string
     listOfColumnNames = list(filteredColumns.index)
     print(listOfColumnNames)
