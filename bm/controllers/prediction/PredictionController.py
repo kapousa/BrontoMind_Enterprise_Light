@@ -14,7 +14,7 @@ import plotly
 import plotly.express as px
 import plotly.graph_objects as go
 import seaborn as sns
-from flask import session
+from flask import session, abort
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -274,4 +274,5 @@ class PredictionController:
             base_controller = BaseController()
             base_controller.deletemodel(model_id)
             print(e)
-            return -1
+            abort(500, description=e.with_traceback())
+
