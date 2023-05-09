@@ -33,7 +33,7 @@ def main():
     print(dataTypeObj)
     print('*** Check if Data type of a column is int64 or object etc in Dataframe ***')
     # Check the type of column 'Age' is int64
-    if dataTypeObj == np.int64:
+    if dataTypeObj == int:
         print("Data type of column 'Age' is int64")
     # Check the type of column 'Name' is object i.e string
     if empDfObj.dtypes['Name'] == object:

@@ -36,7 +36,7 @@ def encode_data_frame1(data: DataFrame):
     encoded_data = data
     data_types = data.dtypes
     for i in range(len(data_types)):
-        if data_types[i] != np.int64:
+        if data_types[i] != int:
             col_name = columns_name[i]
             oe_style = OneHotEncoder()
             oe_results = oe_style.fit_transform(data[[col_name]])
@@ -64,7 +64,7 @@ def encode_features_data_frame(model_id, data: DataFrame, column_type='F'):
     encoded_data = []
     data_types = data.dtypes
     for i in range(len(data_types)):
-        if data_types[i] != np.int64 and data_types[i] != np.float:
+        if data_types[i] != int and data_types[i] != float:
             col_name = columns_name[i]
             dummies = pd.get_dummies(data[[col_name]])
             dummies_columns = dummies.columns
@@ -96,9 +96,9 @@ def encode_labels_data_frame(model_id, data: DataFrame, column_type='L'):
         encoded_data = []
         data_types = data.dtypes
         for i in range(len(data_types)):
-            if data_types[i] != np.int64 and data_types[i] != np.float:
+            if data_types[i] != int and data_types[i] != float:
                 col_name = columns_name[i]
-                dummies = pd.get_dummies(data[[col_name]] if data_types[i] != np.float else round(data[[col_name]], 0))
+                dummies = pd.get_dummies(data[[col_name]] if data_types[i] != float else round(data[[col_name]], 0))
                 dummies_columns = dummies.columns
                 # encoded_data = encoded_data.append(dummies)
                 data = data.drop([col_name], axis=1)
@@ -138,7 +138,7 @@ def encode_data_array(columns_list, data_array):
     columns_name = data_frame.columns
     encoded_data_frame = data_frame
     for i in range(len(data_types)):
-        if data_types[i] != np.int64:
+        if data_types[i] != int:
             col_name = columns_name[i]
             encoder = ce.OneHotEncoder(cols=col_name, use_cat_names=True)
             encoded_data_frame = encoder.fit_transform(encoded_data_frame)

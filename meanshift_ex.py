@@ -41,7 +41,7 @@ def handle_non_numerical_data(df):
             return text_digit_vals[val]
 
         # print(column,df[column].dtype)
-        if df[column].dtype != np.int64 and df[column].dtype != np.float64:
+        if df[column].dtype != int and df[column].dtype != float64:
 
             column_contents = df[column].values.tolist()
             # finding just the uniques

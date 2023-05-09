@@ -70,9 +70,9 @@ class ModelProcessor:
         #             except:
         #                 cls = GaussianNB()
         #     else:  # Prediction (Regression)
-        #         if (labeldatatype[0] == np.int64 and numberofrecords < numberofrecordsedge):
+        #         if (labeldatatype[0] == int and numberofrecords < numberofrecordsedge):
         #             cls = SGDRegressor()
-        #         elif (labeldatatype[0] == np.int64 and numberofrecords >= numberofrecordsedge):
+        #         elif (labeldatatype[0] == int and numberofrecords >= numberofrecordsedge):
         #             if (number_of_features < 10):
         #                 cls = Lasso(alpha=1.0)
         #             else:
@@ -178,11 +178,11 @@ class ModelProcessor:
         if (number_of_predictions == 1):
             labeldatatype = modellabels.dtypes
             # Prediction (Regression)
-            if ((labeldatatype[0] == np.int64 or labeldatatype[
-                0] == np.float) and numberofrecords < numberofrecordsedge):
+            if ((labeldatatype[0] == int or labeldatatype[
+                0] == float) and numberofrecords < numberofrecordsedge):
                 cls = SGDRegressor()
-            elif ((labeldatatype[0] == np.int64 or labeldatatype[
-                0] == np.float) and numberofrecords >= numberofrecordsedge):
+            elif ((labeldatatype[0] == int or labeldatatype[
+                0] == float) and numberofrecords >= numberofrecordsedge):
                 if (number_of_features < 10):
                     cls = Lasso(alpha=1.0)
                 else:
