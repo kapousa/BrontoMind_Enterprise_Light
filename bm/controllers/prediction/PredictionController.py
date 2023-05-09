@@ -4,6 +4,7 @@ import pathlib
 import pickle
 import random
 import shutil
+import sys
 import time
 from datetime import datetime
 
@@ -274,5 +275,6 @@ class PredictionController:
             base_controller = BaseController()
             base_controller.deletemodel(model_id)
             print(e)
-            abort(500, description=e.with_traceback())
+            tb = sys.exc_info()[2]
+            abort(500, description=e.with_traceback(tb))
 
