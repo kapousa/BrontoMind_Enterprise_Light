@@ -182,6 +182,6 @@ class PredictionDirector:
                                            all_gategories_values=all_gategories_values, predicted='Yes', message='No')
         except Exception as e:
             return render_template('applications/pages/nomodeltopredictevalues.html',
-                                   error=str(e),
+                                   error=str(e),ds_goal=ds_goal, mid=model_id, ds_source=ds_source,
                                    message="Not able to predict. One or more entered values has not relevant value in your dataset, please enter data from provided dataset",
                                    segment='message')

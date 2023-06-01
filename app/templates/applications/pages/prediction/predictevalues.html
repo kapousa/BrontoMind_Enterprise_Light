@@ -102,8 +102,7 @@
         </div>
         {% if predicted == 'NoValue' %}
             <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div style="text-align: center; color: red">
                             <center>
@@ -112,7 +111,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2"></div>
             </div>
         {% endif %}
 
@@ -160,7 +158,7 @@
                     <div class="alert alert-danger" role="alert">
                         <strong>Sorry!</strong> {{ message }}
                     </div>
-                    <a href="/predictevalues?t={{ ds_goal }}">
+                    <a href="/predictevalues?t={{ ds_goal }}&s={{ ds_source }}&m={{ mid }}">
                         <button type="button" class="btn btn-primary pull-right">Try again</button>
                     </a>
                 </div>
