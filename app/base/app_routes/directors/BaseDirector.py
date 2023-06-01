@@ -171,12 +171,12 @@ class BaseDirector:
                 # ----- For demo only --------
                 data = pd.read_csv(filePath)
                 # check if dataframe contains non-numeric columns
-                non_numeric_cols = data.select_dtypes(exclude='number').columns
-                if len(non_numeric_cols) > 0:
-                    print("DataFrame contains non-numeric columns:", non_numeric_cols)
-                    return render_template('applications/pages/connecttods.html', ds_id=session['ds_source'],
-                                           segment='createmodel', str_message="For Demo Purpose, Data should be only "
-                                                                              "numeric values.")
+                # non_numeric_cols = data.select_dtypes(exclude='number').columns
+                # if len(non_numeric_cols) > 0:
+                #     print("DataFrame contains non-numeric columns:", non_numeric_cols)
+                #     return render_template('applications/pages/connecttods.html', ds_id=session['ds_source'],
+                #                            segment='createmodel', str_message="For Demo Purpose, Data should be only "
+                #                                                               "numeric values.")
 
 
             if ds_source == '2':
