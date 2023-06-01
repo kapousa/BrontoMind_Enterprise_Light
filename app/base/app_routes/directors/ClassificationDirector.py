@@ -44,7 +44,7 @@ class ClassificationDirector:
                                        message='No')
 
             return render_template('applications/pages/classification/textpredictevalues.html',
-                                   error=str('Error'), ds_goal=ds_goal, ds_source=ds_source,
+                                   error=str('Error'), ds_goal=ds_goal, ds_source=ds_source, mid=model_id,
                                    message="Not able to predict. One or more entered values has not relevant value in your dataset, please enter data from provided dataset",
                                    segment='message')
 

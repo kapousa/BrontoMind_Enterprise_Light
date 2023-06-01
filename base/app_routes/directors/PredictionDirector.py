@@ -103,7 +103,7 @@ class PredictionDirector:
             if opt_param == 0:
                 # response = make_response()
                 return render_template('applications/pages/prediction/predictevalues.html', features_list=features_list,
-                                       labels_list=labels_list, ds_goal=ds_goal,
+                                       labels_list=labels_list, ds_goal=ds_goal, ds_source= ds_source, mid= model_id,
                                        predicted_value='nothing', testing_values='nothing',
                                        all_gategories_values=all_gategories_values, predicted='Nothing', message='No')
             else:
@@ -120,14 +120,14 @@ class PredictionDirector:
                     if (predicted_value[0][0] == 'Entered data is far from any possible prediction, please refine the input data'):
                         return render_template('applications/pages/prediction/predictevalues.html',
                                                features_list=features_list,
-                                               labels_list=labels_list, ds_goal=ds_goal,
+                                               labels_list=labels_list, ds_goal=ds_goal, ds_source= ds_source, mid= model_id,
                                                predicted_value=predicted_value[0][0], testing_values=testing_values,
                                                all_gategories_values=all_gategories_values, predicted='NoValue',
                                                message='No')
 
                     return render_template('applications/pages/prediction/predictevalues.html',
                                            features_list=features_list,
-                                           labels_list=labels_list, ds_goal=ds_goal,
+                                           labels_list=labels_list, ds_goal=ds_goal, ds_source= ds_source, mid= model_id,
                                            predicted_value=predicted_value, testing_values=testing_values,
                                            all_gategories_values=all_gategories_values, predicted='Yes', message='No')
         except Exception as e:
