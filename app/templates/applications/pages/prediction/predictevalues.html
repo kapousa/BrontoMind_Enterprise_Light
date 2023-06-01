@@ -23,7 +23,8 @@
 
                 </div>
 
-                <form action="/predictevalues?t={{ ds_goal }}&s={{ ds_source }}&m={{ mid }}" method="post" name="predictevalues">
+                <form action="/predictevalues?t={{ ds_goal }}&s={{ ds_source }}&m={{ mid }}" method="post"
+                      name="predictevalues">
                     <div class="card-body">
 
                         {% for i in range(0, features_list.size) %}
@@ -99,6 +100,22 @@
             {% endfor %}
         {% endif %}
         </div>
+        {% if predicted == 'NoValue' %}
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div style="text-align: center; color: red">
+                            <center>
+                                {{ predicted_value }}
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        {% endif %}
+
         {% if predicted == 'Yes' %}
             <div class="row">
                 <div class="col-md-3"></div>
@@ -106,7 +123,6 @@
                     <div class="card">
                         <div class="card-header card-header-warning">
                             <h2 style="text-align: center">Predicted Values</h2>
-
                         </div>
                         <div style="text-align: center">
                             <center>

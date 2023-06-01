@@ -80,8 +80,8 @@ class PredictionController:
 
         except Exception as e:
             logging.error(e)
-            return [
-                'Entered data is far from any possible prediction, please refine the input data']
+            return [[
+                'Entered data is far from any possible prediction, please refine the input data']]
 
     def _create_prediction_model(self, root_path, csv_file_location, featuresdvalues, predicted_columns, ds_source,
                                  ds_goal):

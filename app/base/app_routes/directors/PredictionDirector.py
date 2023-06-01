@@ -167,6 +167,14 @@ class PredictionDirector:
                     modelcontroller = PredictionController()
                     predicted_value = modelcontroller.predict_values_from_model(model_id, testing_values)
                     # response = make_response()
+                    if (predicted_value[0][0] == 'Entered data is far from any possible prediction, please refine the input data'):
+                        return render_template('applications/pages/prediction/predictevalues.html',
+                                               features_list=features_list,
+                                               labels_list=labels_list, ds_goal=ds_goal,
+                                               predicted_value=predicted_value[0][0], testing_values=testing_values,
+                                               all_gategories_values=all_gategories_values, predicted='NoValue',
+                                               message='No')
+
                     return render_template('applications/pages/prediction/predictevalues.html',
                                            features_list=features_list,
                                            labels_list=labels_list, ds_goal=ds_goal, mid=model_id, ds_source=ds_source,
