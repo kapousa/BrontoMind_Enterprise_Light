@@ -15,28 +15,28 @@ from bm.apis.v1.cvision.APIsObjectDetectionServices import APIsObjectDetectionSe
 
 ## APIs
 
-@blueprint.route('/api/v1/<model_id>/predictevalues', methods=['POST'])
+@blueprint.route('/api/v1/<model_id>/predictevalues', methods=['GET', 'POST'])
 def predictevalues_api(model_id):
     content = request.get_json(silent=True)
     apireturn_json = predictvalues(model_id, content)
     return apireturn_json
 
 
-@blueprint.route('/api/v1/<model_id>/classifydata', methods=['POST'])
+@blueprint.route('/api/v1/<model_id>/classifydata', methods=['GET', 'POST'])
 def classifydata_api(model_id):
     content = request.json
     apis_classification_services = APIsClassificationServices()
     apireturn_json = apis_classification_services.classify_data(content, model_id)
     return apireturn_json
 
-@blueprint.route('/api/v1/<model_id>/labeldata', methods=['POST'])
+@blueprint.route('/api/v1/<model_id>/labeldata', methods=['GET', 'POST'])
 def labeldata_api(model_id):
     content = request.json
     apis_clustering_services = APIsClusteringServices()
     apireturn_json = apis_clustering_services.cluster_data(content, model_id)
     return apireturn_json
 
-@blueprint.route('/api/v1/<model_id>//cvision/objdect/labelfiles', methods=['POST'])
+@blueprint.route('/api/v1/<model_id>//cvision/objdect/labelfiles', methods=['GET', 'POST'])
 def labelfiles_api(model_id):
     content = request.json
     apisObjectdetectionservices = APIsObjectDetectionServices()
