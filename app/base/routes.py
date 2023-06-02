@@ -25,6 +25,7 @@ from app.base import blueprint
 from app.base.app_routes.directors.BaseDirector import BaseDirector
 from app.base.app_routes.directors.ClassificationDirector import ClassificationDirector
 from app.base.app_routes.directors.ClusteringDirector import ClusteringDirector
+from app.base.app_routes.directors.DatasetsDirector import DatasetsDirector
 from app.base.app_routes.directors.ForecastingDirector import ForecastingDirector
 from app.base.app_routes.directors.PredictionDirector import PredictionDirector
 from app.base.constants.BM_CONSTANTS import plot_zip_download_location, progress_icon_path, loading_icon_path
@@ -697,6 +698,15 @@ def testyolo():
     subprocess.run(['python3', pathh, '0', os.path.join(uploads_dir, secure_filename(filename))])
     print("Done")
     return redirect(url_for('base_blueprint.idea'))
+
+@blueprint.route('/datasets', methods=['GET', 'POST'])
+def datasets():
+    return DatasetsDirector.view_all()
+
+@blueprint.route('/downlaoddataset/<id>', methods=['GET', 'POST'])
+def downlaoddataset(id):
+    path = DatasetsDirector.downlaod_datasets(id)
+    return send_file(path, as_attachment=True)
 
 ## Errors
 @login_manager.unauthorized_handler

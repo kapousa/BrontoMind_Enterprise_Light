@@ -74,3 +74,9 @@ results_path = 'detection/'
 app_results_path = 'app/detection/'
 
 tempfiles_loaction = 'app/tempfiles/'
+
+datasets_files = 'app/static/datasets'
+
+downlaod_dataset_file_path = 'static/datasets'
+
+
