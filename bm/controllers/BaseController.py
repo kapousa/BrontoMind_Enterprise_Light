@@ -7,7 +7,7 @@ from datetime import datetime
 import numpy
 import numpy as np
 import pandas as pd
-from flask import abort
+from flask import abort, session
 
 from app import db
 from app.base.constants.BM_CONSTANTS import scalars_location, pkls_location, output_docs_location, df_location, \
@@ -110,7 +110,7 @@ class BaseController:
     @staticmethod
     def get_all_models():
         try:
-            model_profiles = ModelProfile.query.order_by("updated_on").all()
+            model_profiles = ModelProfile.query.filter_by(user_id = session['logger']).order_by("updated_on").all()
             profiles = []
 
             for profile in model_profiles:

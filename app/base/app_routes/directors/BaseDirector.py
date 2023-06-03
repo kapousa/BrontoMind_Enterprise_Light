@@ -6,10 +6,12 @@ import numpy
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-from flask import render_template, session, redirect, url_for, abort
+from flask import render_template, session, redirect, url_for, abort, request
 from werkzeug.utils import secure_filename
 
+from app import db
 from app.base.constants.BM_CONSTANTS import df_location
+from app.base.db_models.ModelFeedback import ModelFeedback
 from base.constants.BM_CONSTANTS import api_data_filename
 from bm.controllers.BaseController import BaseController
 from bm.datamanipulation.AdjustDataFrame import export_mysql_query_to_csv, export_api_respose_to_csv
@@ -163,7 +165,6 @@ class BaseDirector:
         # 25, Object Detecting
         # 29, Face Detection
 
-
         try:
             if ds_source == '1':
                 fname, filePath, headersArray, data, dataset_info, message = self.get_data_details(request)
@@ -177,7 +178,6 @@ class BaseDirector:
                 #     return render_template('applications/pages/connecttods.html', ds_id=session['ds_source'],
                 #                            segment='createmodel', str_message="For Demo Purpose, Data should be only "
                 #                                                               "numeric values.")
-
 
             if ds_source == '2':
                 database_name, file_location, headersArray, count_row, data, message = self.prepare_query_results(
@@ -208,12 +208,12 @@ class BaseDirector:
                             line_color='darkslategray',
                             fill_color='lightskyblue',
                             align='left'),
-                cells=dict(values= flp,  # 2nd column
+                cells=dict(values=flp,  # 2nd column
                            line_color='darkslategray',
                            fill_color='lightcyan',
                            align='left'))
             ])
-            #fig.show()
+            # fig.show()
 
             return render_template('applications/pages/datapreview.html',
                                    message='data_info', filePath=filePath, segment="selectmodelgoal",
@@ -222,3 +222,25 @@ class BaseDirector:
             logging.error(e)
             abort(500, description=e)
 
+    @staticmethod
+    def sendreport():
+        return render_template("/applications/pages/feedback.html", message="None")
+
+    @staticmethod
+    def submitreport(request):
+        try:
+            # Add model feedback to the database
+            feedbackmodel = {'user_id': int(session['logger']),
+                             'message': str(request.form.get("report")),
+                             'type': int(request.form.get("report_type"))}
+            feedback_model = ModelFeedback(**feedbackmodel)
+            # Add new feedback
+            db.session.add(feedback_model)
+            db.session.commit()
+
+            return render_template("/applications/pages/feedback.html",
+                                   message="We have recived your message. Thank you", status='success')
+
+        except Exception as e:
+            return render_template("/applications/pages/feedback.html",
+                                   message="Error when sending the report, Please try again", status='fail')

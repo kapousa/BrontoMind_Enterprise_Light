@@ -32,13 +32,16 @@ def predictvalues(model_id, content):
 
     # Create predicted values json object
     predicted_values_json = {}
-    for j in range(len(predicted_value)):
-        for i in range(len(lables_list)):
-            bb =  predicted_value[j][i]
-            predicted_values_json[lables_list[i]] = predicted_value[j][i]
-            # NpEncoder = NpEncoder(json.JSONEncoder)
+    if (predicted_value[0][0] == 'Entered data is far from any possible prediction, please refine the input data'):
+        predicted_values_json['prediction'] = predicted_value[0][0]
         json_data = json.dumps(predicted_values_json, cls=NpEncoder)
-
+    else:
+        for j in range(len(predicted_value)):
+            for i in range(len(lables_list)):
+                bb =  predicted_value[j][i]
+                predicted_values_json[lables_list[i]] = predicted_value[j][i]
+                # NpEncoder = NpEncoder(json.JSONEncoder)
+            json_data = json.dumps(predicted_values_json, cls=NpEncoder)
 
     return json_data
 

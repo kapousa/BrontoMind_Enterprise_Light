@@ -700,13 +700,26 @@ def testyolo():
     return redirect(url_for('base_blueprint.idea'))
 
 @blueprint.route('/datasets', methods=['GET', 'POST'])
+@login_required
 def datasets():
     return DatasetsDirector.view_all()
 
 @blueprint.route('/downlaoddataset/<id>', methods=['GET', 'POST'])
+@login_required
 def downlaoddataset(id):
     path = DatasetsDirector.downlaod_datasets(id)
     return send_file(path, as_attachment=True)
+
+@blueprint.route('/sendreport', methods=['GET', 'POST'])
+@login_required
+def sendreport():
+    return BaseDirector.sendreport()
+
+@blueprint.route('/submitreport', methods=['GET', 'POST'])
+@login_required
+def submitreport():
+    return BaseDirector.submitreport(request)
+
 
 ## Errors
 @login_manager.unauthorized_handler

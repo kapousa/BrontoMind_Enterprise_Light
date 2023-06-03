@@ -53,6 +53,8 @@ class APIHelper:
         :param output_pdf_folder: 
         :return: Success = 1, Fail= error
         """
+        base_url = base_url[7:] # to avoid adding http protocol to the URL
+        #print("Base URL:" + base_url)
         ds_goal = session['ds_goal']
         api_details_id = numpy.array(ModelAPIDetails.query.with_entities(ModelAPIDetails.api_details_id).filter_by(model_id = str(model_id)).first())
         generatemodelapimethdos = self.generatemodelapimethods(str(model_id), ds_goal, api_details_id[0])   # generate model api methdos
