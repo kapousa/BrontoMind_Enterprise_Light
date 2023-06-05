@@ -7,6 +7,7 @@ from flask import render_template, request
 
 from app import login_manager
 from app.apis import blueprint
+from bm.apis.v1.APIHelper import APIHelper
 from bm.apis.v1.APIsClusteringServices import APIsClusteringServices
 from bm.apis.v1.APIsPredictionServices import predictvalues
 from bm.apis.v1.APIsClassificationServices import APIsClassificationServices
@@ -36,12 +37,17 @@ def labeldata_api(model_id):
     apireturn_json = apis_clustering_services.cluster_data(content, model_id)
     return apireturn_json
 
-@blueprint.route('/api/v1/<model_id>//cvision/objdect/labelfiles', methods=['GET', 'POST'])
+@blueprint.route('/api/v1/<model_id>/cvision/objdect/labelfiles', methods=['GET', 'POST'])
 def labelfiles_api(model_id):
     content = request.json
     apisObjectdetectionservices = APIsObjectDetectionServices()
     apireturn_json = apisObjectdetectionservices.label_files(content, model_id)
     return apireturn_json
+
+@blueprint.route('/api/v1/getfeedbacks', methods=['GET', 'POST'])
+def getfeedbacks():
+    feedback_json = APIHelper.get_all_feedback()
+    return feedback_json
 
 # Errors
 

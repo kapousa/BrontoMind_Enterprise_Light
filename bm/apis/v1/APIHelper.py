@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 
@@ -7,6 +8,7 @@ from mailmerge import MailMerge
 
 from app import db
 from app.base.constants.BM_CONSTANTS import output_document_sfx
+from app.base.db_models.ModelFeedback import ModelFeedback
 from app.base.db_models.ModelProfile import ModelProfile
 from app.base.db_models.ModelAPIMethods import ModelAPIMethods
 from bm.apis.v1.APIsPredictionServices import predictvalues, getmodelfeatures, getmodellabels, nomodelfound
@@ -16,6 +18,9 @@ from app.base.db_models.ModelAPIModelMethods import ModelAPIModelMethods
 from app.base.db_models.ModelAPIDetails import ModelAPIDetails
 from docxcompose.composer import Composer
 from docx import Document as Document_compose
+
+from bm.apis.v1.APIsPredictionServices import NpEncoder
+
 
 
 class APIHelper:
@@ -224,3 +229,24 @@ class APIHelper:
 
         except Exception as e:
             logging.error("createmodelapimethdos\n" + e)
+
+    @staticmethod
+    def get_all_feedback():
+        modelfeedbacks = ModelFeedback.query.all()
+
+        json_result = json.dumps([{
+            'id': modelfeedback.id,
+            'user_id': modelfeedback.user_id,
+            'message': modelfeedback.message,
+            'type': modelfeedback.type
+        } for modelfeedback in modelfeedbacks])
+
+        # Create a parent dictionary
+        parent_dict = {
+            "parent": json_result
+        }
+        # NpEncoder = NpEncoder(json.JSONEncoder)
+        json_data = json.dumps(parent_dict, cls=NpEncoder)
+
+        return json_data
+
