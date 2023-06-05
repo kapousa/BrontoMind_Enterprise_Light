@@ -11,34 +11,35 @@
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title ">Datasets</h4>
-                    <p class="card-category">Use these dataset to help you to create your own machine learning models. Also, it can help understanding how BrontoMind works and </p>
+                    <p class="card-category">Use these dataset to help you to create your own machine learning models.
+                        Also, it can help understanding how BrontoMind works and </p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <div>
-                            <table class="table align-items-center">
+                            <table class="table align-items-center" style="table-layout:fixed; ">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">
-                                        File Name
+                                    <th scope="col" style="width: 20%;">
+                                        Name
                                     </th>
-                                    <th scope="col">
+                                    <th scope="col" style="width: 50%;">
                                         Description
                                     </th>
-                                    <th scope="col">
+                                    <th scope="col" style="width: 10%;">
                                         Dataset Type
                                     </th>
-                                    <th scope="col">
+                                    <th scope="col" style="width: 10%;">
                                         Number or Rows
                                     </th>
-                                    <th scope="col"></th>
+                                    <th scope="col" style="width: 10%;"></th>
                                 </tr>
                                 </thead>
                                 <tbody class="list">
                                 {% for model_dataset in model_datasets %}
                                     <tr>
-                                        <td>{{ model_dataset['file_name'] }}</td>
-                                        <td>{{ model_dataset['desc'] }}</td>
+                                        <td>{{ model_dataset['name'] }}</td>
+                                        <td style="white-space: -o-pre-wrap; word-wrap: break-word; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: pre-wrap;">{{ model_dataset['desc'] }}</td>
                                         <td>{{ model_dataset['type'] }}</td>
                                         <td>{{ model_dataset['no_of_rows'] }}</td>
                                         <td class="budget">

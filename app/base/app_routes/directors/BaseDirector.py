@@ -73,6 +73,39 @@ class BaseDirector:
             abort(500)
 
     @staticmethod
+    def get_remote_data_details(file_path):  # Same as above but it works on db and api connection
+        try:
+            filePath = file_path
+            ds_source = session['ds_source']
+            ds_goal = session['ds_goal']
+
+            # Remove empty columns
+            data = Helper.remove_empty_columns(filePath)
+
+            # Check if the dataset if engough
+            count_row = data.shape[0]
+            message = 'No'
+
+            if (count_row < 5):
+                message = 'Uploaded data document does not have enough data, the document must have minimum 50 records of data for accurate processing.'
+                return render_template('applications/pages/dashboard.html',
+                                       message=message,
+                                       ds_source=ds_source, ds_goal=ds_goal,
+                                       segment='createmodel')
+
+            # Get the DS file header
+            dataset_info = BaseController.get_dataset_info(filePath)
+            headersArray = getcvsheader(filePath)
+            # fname = secure_filename(f[0].filename)
+            fname = session['fname']
+
+            return fname, filePath, headersArray, data, dataset_info, message
+
+        except Exception as e:
+            logging.error(e)
+            abort(500)
+
+    @staticmethod
     def prepare_query_results(request):
         host_name = request.form.get('host_name')
         username = request.form.get('username')
@@ -182,16 +215,18 @@ class BaseDirector:
             if ds_source == '2':
                 database_name, file_location, headersArray, count_row, data, message = self.prepare_query_results(
                     request)
+                fname, filePath, headersArray, data, dataset_info, message = self.get_remote_data_details(file_location)
 
             if ds_source == '12':
                 database_name, file_location, headersArray, data, count_row, message = BaseDirector.prepare_api_results(
                     request)
+                fname, filePath, headersArray, data, dataset_info, message = self.get_remote_data_details(file_location)
 
             sample_data = (data.sample(n=10))
 
             # Draw sample data
             sample_data_values = sample_data.values
-            sample_header = dataset_info.columns.tolist()
+            sample_header = headersArray #dataset_info.columns.tolist()
             sample_header = numpy.array(sample_header)
             complex_column = []
             dataset_info_value = dataset_info.values

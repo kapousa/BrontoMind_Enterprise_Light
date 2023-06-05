@@ -14,6 +14,7 @@ class ModelDatasets(db.Model):
 
     id = Column(Integer, primary_key=True, unique=True)
     file_name = Column(String)
+    name = Column(String)
     desc = Column(String)
     type = Column(Integer)
     no_of_rows = Column(Integer)
