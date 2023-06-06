@@ -235,10 +235,10 @@ class APIHelper:
         modelfeedbacks = ModelFeedback.query.all()
 
         json_result = json.dumps([{
-            'id': modelfeedback.id,
-            'user_id': modelfeedback.user_id,
-            'message': modelfeedback.message,
-            'type': modelfeedback.type
+            "id": modelfeedback.id,
+            "user_id": modelfeedback.user_id,
+            "message": modelfeedback.message,
+            "type": modelfeedback.type
         } for modelfeedback in modelfeedbacks])
 
         # Create a parent dictionary
