@@ -12,7 +12,6 @@ from app.base.constants.BM_CONSTANTS import output_document_sfx
 from app.base.db_models.ModelFeedback import ModelFeedback
 from app.base.db_models.ModelProfile import ModelProfile
 from app.base.db_models.ModelAPIMethods import ModelAPIMethods
-from app.base.db_models.ModelUser import ModelUser
 from bm.apis.v1.APIsPredictionServices import predictvalues, getmodelfeatures, getmodellabels, nomodelfound
 from bm.db_helper.AttributesHelper import get_model_name, get_features, get_labels
 
