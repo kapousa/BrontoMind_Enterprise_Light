@@ -46,7 +46,17 @@ def labelfiles_api(model_id):
 
 @blueprint.route('/api/v1/getfeedbacks', methods=['GET', 'POST'])
 def getfeedbacks():
-    feedback_json = APIHelper.get_all_feedback()
+    feedback_json = APIHelper.get_all_feedbacks()
+    return feedback_json
+
+@blueprint.route('/api/v1/getallprofiles', methods=['GET', 'POST'])
+def getallprofiles():
+    feedback_json = APIHelper.get_all_profiles()
+    return feedback_json
+
+@blueprint.route('/api/v1/getallusers', methods=['GET', 'POST'])
+def getallusers():
+    feedback_json = APIHelper.get_all_users()
     return feedback_json
 
 # Errors

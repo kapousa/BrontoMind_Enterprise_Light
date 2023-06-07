@@ -7,10 +7,12 @@ from flask import session
 from mailmerge import MailMerge
 
 from app import db
+from app.authentication.models import Users
 from app.base.constants.BM_CONSTANTS import output_document_sfx
 from app.base.db_models.ModelFeedback import ModelFeedback
 from app.base.db_models.ModelProfile import ModelProfile
 from app.base.db_models.ModelAPIMethods import ModelAPIMethods
+from app.base.db_models.ModelUser import ModelUser
 from bm.apis.v1.APIsPredictionServices import predictvalues, getmodelfeatures, getmodellabels, nomodelfound
 from bm.db_helper.AttributesHelper import get_model_name, get_features, get_labels
 
@@ -231,7 +233,7 @@ class APIHelper:
             logging.error("createmodelapimethdos\n" + e)
 
     @staticmethod
-    def get_all_feedback():
+    def get_all_feedbacks():
         modelfeedbacks = ModelFeedback.query.all()
 
         json_result = json.dumps([{
@@ -243,7 +245,49 @@ class APIHelper:
 
         # Create a parent dictionary
         parent_dict = {
-            "parent": json_result
+            "feedbacks": json_result
+        }
+        # NpEncoder = NpEncoder(json.JSONEncoder)
+        json_data = json.dumps(parent_dict, cls=NpEncoder)
+
+        return json_data
+
+    @staticmethod
+    def get_all_profiles():
+        modelprofiles = ModelProfile.query.all()
+
+        json_result = json.dumps([{
+            "model_id": modelprofile.id,
+            "model_name": modelprofile.model_name,
+            "user_id": modelprofile.user_id,
+            "description": modelprofile.description,
+            "updated_on": modelprofile.updated_on,
+        } for modelprofile in modelprofiles])
+
+        # Create a parent dictionary
+        parent_dict = {
+            "profiles": json_result
+        }
+        # NpEncoder = NpEncoder(json.JSONEncoder)
+        json_data = json.dumps(parent_dict, cls=NpEncoder)
+
+        return json_data
+
+    @staticmethod
+    def get_all_users():
+        users = Users.query.all()
+
+        json_result = json.dumps([{
+            "id": user.id,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "account_type": user.account_type,
+            "username": user.username,
+        } for user in users])
+
+        # Create a parent dictionary
+        parent_dict = {
+            "users": json_result
         }
         # NpEncoder = NpEncoder(json.JSONEncoder)
         json_data = json.dumps(parent_dict, cls=NpEncoder)
