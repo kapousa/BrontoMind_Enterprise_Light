@@ -183,5 +183,5 @@ class PredictionDirector:
         except Exception as e:
             return render_template('applications/pages/nomodeltopredictevalues.html',
                                    error=str(e),ds_goal=ds_goal, mid=model_id, ds_source=ds_source,
-                                   message="Not able to predict. One or more entered values has not relevant value in your dataset, please enter data from provided dataset",
+                                   message="Entered data is far from any possible prediction, please refine the input data",
                                    segment='message')
